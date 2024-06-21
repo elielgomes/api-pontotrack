@@ -9,4 +9,8 @@ export class User {
   role?: $Enums.Role;
   createdAt?: Date;
   updatedAt?: Date;
+
+  constructor(user: User) {
+    Object.assign(this, user);
+  }
 }
