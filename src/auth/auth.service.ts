@@ -1,13 +1,29 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
+import { User } from 'src/user/entities/user.entity';
+import { UserPayload } from './models/user-payload';
+import { JwtService } from '@nestjs/jwt';
+import { UserToken } from './models/user-token';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
 
-  login() {
-    throw new Error('Method not implemented.');
+  login(user: User): UserToken {
+    const payload: UserPayload = {
+      sub: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+    };
+    const jwtToken = this.jwtService.sign(payload);
+    return {
+      access_token: jwtToken,
+    };
   }
 
   async validateUser(email: string, password: string) {
