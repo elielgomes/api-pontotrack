@@ -1,4 +1,6 @@
-import { SetMetadata } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
+import { AdminGuard } from '../guards/admin.guard';
 
-export const IS_ADMIN_KEY = 'isAdmin';
-export const IsAdmin = () => SetMetadata(IS_ADMIN_KEY, true);
+export function IsAdmin() {
+  return UseGuards(AdminGuard);
+}
