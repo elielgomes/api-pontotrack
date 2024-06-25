@@ -1,9 +1,6 @@
-import { $Enums } from '@prisma/client';
 import {
   IsEmail,
-  IsEnum,
   IsNotEmpty,
-  IsOptional,
   IsString,
   Matches,
   MaxLength,
@@ -17,20 +14,10 @@ export class CreateUserDto {
   @MaxLength(50)
   name: string;
 
-  @IsEnum($Enums.Role)
-  @IsOptional()
-  role?: $Enums.Role;
-
   @IsString()
   @IsNotEmpty()
   @IsEmail()
   email: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @MinLength(10)
-  @MaxLength(15)
-  phone: string;
 
   @IsString()
   @IsNotEmpty()
