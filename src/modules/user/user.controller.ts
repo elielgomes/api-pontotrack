@@ -1,11 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UserService } from './user.service';
+import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { UserFromJwt } from '../auth/models/user-from-jwt';
-import { IsAdmin } from '../auth/decorators/is-admin.decorator';
-// import { AdminGuard } from '../auth/guards/admin.guard';
-// import { IsPublic } from '../auth/decorators/is-public.decorator';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UserService } from './user.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { IsPublic } from '../auth/decorators/is-public.decorator';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @Controller('user')
 export class UserController {
@@ -13,17 +13,25 @@ export class UserController {
 
   @Get('me')
   getMe(@CurrentUser() user: UserFromJwt) {
-    return user;
+    return this.userService.findById(user.id);
   }
 
+  @Patch()
+  update(@Body() updateUserDto: UpdateUserDto) {
+    return this.userService.update(updateUserDto);
+  }
+
+  @IsPublic()
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
-  @IsAdmin()
-  @Get('hello')
-  hello() {
-    return 'Hello World';
+  @Patch('password')
+  updatePassword(
+    @CurrentUser() user: UserFromJwt,
+    @Body() updatePasswordDto: UpdatePasswordDto,
+  ) {
+    return this.userService.updatePassword(user.id, updatePasswordDto);
   }
 }
