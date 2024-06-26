@@ -66,7 +66,7 @@ export class UserService {
     return await this.userRepository.delete(id);
   }
 
-  async update(updateUserDto: UpdateUserDto) {
+  async update(updateUserDto: UpdateUserDto & { id: string }) {
     const user = await this.userRepository.findById(updateUserDto.id);
 
     if (!user) {
@@ -88,13 +88,17 @@ export class UserService {
       updateUserDto.password = await bcrypt.hash(updateUserDto.password, salt);
     }
 
-    const updatedUser = new User({
+    const userObj = new User({
       ...user,
       ...updateUserDto,
       password: updateUserDto.password || user.password,
     });
 
-    return await this.userRepository.update(updatedUser);
+    const updatedUser = await this.userRepository.update(userObj);
+    return {
+      ...updatedUser,
+      password: undefined,
+    };
   }
 
   async updatePassword(
