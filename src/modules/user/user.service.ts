@@ -62,7 +62,7 @@ export class UserService {
     return { ...user, password: undefined };
   }
 
-  async remove(id: string) {
+  async delete(id: string) {
     return await this.userRepository.delete(id);
   }
 
