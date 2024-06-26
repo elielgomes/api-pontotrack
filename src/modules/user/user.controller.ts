@@ -17,8 +17,11 @@ export class UserController {
   }
 
   @Patch()
-  update(@Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(updateUserDto);
+  update(
+    @CurrentUser() user: UserFromJwt,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    return this.userService.update({ ...updateUserDto, id: user.id });
   }
 
   @IsPublic()
