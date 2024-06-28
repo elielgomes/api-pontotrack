@@ -11,6 +11,7 @@ async function bootstrap() {
         'http://localhost:3000',
         'https://apptrack-coral.vercel.app',
         'https://apptrack.online',
+        'https://apptrack-git-dev-elielgomes-projects.vercel.app',
       ];
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
