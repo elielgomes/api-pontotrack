@@ -6,7 +6,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
     origin: (origin, callback) => {
-      const allowedOrigins = [process.env.APP_URL, 'http://localhost:3000'];
+      const allowedOrigins = [
+        process.env.APP_URL,
+        'http://localhost:3000',
+        'https://apptrack-coral.vercel.app',
+        'https://apptrack.online',
+      ];
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
