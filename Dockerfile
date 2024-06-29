@@ -15,7 +15,6 @@ RUN npm install -g prisma --quiet --no-optional --no-fund --loglevel=error
 
 # Copie o restante do código da aplicação para o contêiner
 COPY . .
-COPY ./.env.production.local ./.env
 
 # Construa a aplicação NestJS
 RUN npm run build
