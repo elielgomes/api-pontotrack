@@ -1,7 +1,9 @@
-export enum Role {
+export enum RolesEnum {
   ADMIN = 'ADMIN',
   USER = 'USER',
 }
+
+export type Roles = 'ADMIN' | 'USER';
 
 export class User {
   id?: string;
@@ -9,7 +11,7 @@ export class User {
   email: string;
   phone?: string;
   password: string;
-  role?: Role;
+  role?: Roles;
   createdAt?: Date;
   updatedAt?: Date;
 
