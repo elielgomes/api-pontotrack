@@ -130,4 +130,9 @@ export class UserService {
       message: 'Password updated successfully',
     };
   }
+
+  async ping() {
+    await this.userRepository.findAll();
+    return null;
+  }
 }
