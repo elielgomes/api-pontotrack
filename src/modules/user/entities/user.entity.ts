@@ -1,4 +1,7 @@
-import { $Enums } from '@prisma/client';
+export enum Role {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}
 
 export class User {
   id?: string;
@@ -6,7 +9,7 @@ export class User {
   email: string;
   phone?: string;
   password: string;
-  role?: $Enums.Role;
+  role?: Role;
   createdAt?: Date;
   updatedAt?: Date;
 

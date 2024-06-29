@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
   Inject,
 } from '@nestjs/common';
-import { $Enums } from '@prisma/client';
+import { Role } from 'src/modules/user/entities/user.entity';
 import { UserRepository } from 'src/modules/user/user.repository';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class AdminGuard implements CanActivate {
       );
     }
     const recoveredUser = await this.userRepository.findById(user.id);
-    if (!recoveredUser || recoveredUser.role !== $Enums.Role.ADMIN) {
+    if (!recoveredUser || recoveredUser.role !== Role.ADMIN) {
       throw new UnauthorizedException(
         "You don't have permission to access this resource.",
       );
