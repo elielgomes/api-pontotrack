@@ -3,7 +3,7 @@ services:
   postgres:
     image: postgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - ./.docker/postgres/:/var/lib/postgresql/data
     restart: unless-stopped
@@ -25,9 +25,31 @@ services:
       - ADMIN_USERS=docker
       - AUTH_TYPE=plain
     ports:
-      - "6432:5432"
+      - '6432:5432'
     depends_on:
       - postgres
+    networks:
+      - network
+
+  migration:
+    image: apitrack
+    command: >
+      sh -c "
+        npx prisma migrate deploy
+      "
+    depends_on:
+      - pgbouncer
+    environment:
+      DATABASE_URL: 'postgresql://docker:docker@postgres:5432/docker?schema=public'
+    networks:
+      - network
+
+  api:
+    image: apitrack
+    ports:
+      - '3000:3000'
+    depends_on:
+      - migration
     networks:
       - network
 
