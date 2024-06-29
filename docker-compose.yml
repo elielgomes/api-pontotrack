@@ -1,58 +1,46 @@
-version: '3.9'
+version: '3.8'
+
 services:
-  postgres:
-    image: postgres
+  api-apptrack:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: api-apptrack:latest
+    container_name: api_apptrack
+    restart: always
     ports:
-      - '5432:5432'
-    volumes:
-      - ./.docker/postgres/:/var/lib/postgresql/data
-    restart: unless-stopped
+      - "3000:3000"
     environment:
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=docker
-    networks:
-      - network
+      DATABASE_URL: "postgresql://postgres:password@db:5432/apptrackdb?schema=public"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: apptrackdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   pgbouncer:
     image: edoburu/pgbouncer
-    environment:
-      - DB_USER=docker
-      - DB_PASSWORD=docker
-      - DB_HOST=postgres
-      - DB_NAME=docker
-      - POOL_MODE=transaction
-      - ADMIN_USERS=docker
-      - AUTH_TYPE=plain
+    container_name: pgbouncer
+    restart: always
     ports:
-      - '6432:5432'
-    depends_on:
-      - postgres
-    networks:
-      - network
-
-  migration:
-    image: apitrack
-    command: >
-      sh -c "
-        npx prisma migrate deploy
-      "
-    depends_on:
-      - pgbouncer
+      - "6432:6432"
     environment:
-      DATABASE_URL: 'postgresql://docker:docker@postgres:5432/docker?schema=public'
-    networks:
-      - network
-
-  api:
-    image: apitrack
-    ports:
-      - '3000:3000'
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: password
+    volumes:
+      - ./pgbouncer:/etc/pgbouncer
     depends_on:
-      - migration
-    networks:
-      - network
+      - db
 
-networks:
-  network:
-    driver: bridge
+volumes:
+  postgres_data:

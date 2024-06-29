@@ -1,29 +1,29 @@
-# Use a imagem oficial do Node.js como a base
+# Use uma imagem base do Node.js com a versão especificada
 FROM node:20.11.1
 
-# Defina o diretório de trabalho na imagem Docker
-WORKDIR /usr/src/api
+# Defina o diretório de trabalho dentro do contêiner
+WORKDIR /app
 
-# Copie o package.json e o package-lock.json (se disponível)
+# Copie os arquivos de configuração e dependências primeiro
 COPY package*.json ./
 
 # Instale as dependências
 RUN npm install --quiet --no-optional --no-fund --loglevel=error
 
-# Instale o Prisma CLI globalmente
-RUN npm install -g prisma --quiet --no-optional --no-fund --loglevel=error
-
-# Copie o restante do código da aplicação para o contêiner
+# Copie todo o restante do código da aplicação
 COPY . .
 
-# Construa a aplicação NestJS
-RUN npm run build
-
-# Gere os arquivos do Prisma
+# Gere o Prisma Client
 RUN npx prisma generate
 
-# Defina a porta que a aplicação vai utilizar
+# Compile o código TypeScript para JavaScript
+RUN npm run build
+
+# Defina a variável de ambiente para produção
+ENV NODE_ENV=production
+
+# Exponha a porta que a aplicação irá escutar
 EXPOSE 3000
 
-# Comando para iniciar a aplicação
+# Defina o comando para iniciar a aplicação
 CMD ["npm", "run", "start:prod"]
