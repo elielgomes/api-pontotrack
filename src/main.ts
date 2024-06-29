@@ -8,7 +8,6 @@ async function bootstrap() {
     origin: (origin, callback) => {
       const allowedOrigins = [
         process.env.APP_URL,
-        'http://localhost:3000',
         'https://apptrack-coral.vercel.app',
         'https://apptrack.online',
       ];
