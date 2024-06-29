@@ -4,9 +4,11 @@ import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [PrismaModule, UserModule, AuthModule],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_GUARD,
