@@ -6,6 +6,13 @@ Este projeto é uma API RESTful para gerenciamento de usuários em uma plataform
 
 ## 👨🏻‍💻 Tecnologias Utilizadas
 
+![Node](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)&nbsp;
+![Nest](https://img.shields.io/badge/nestjs-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)&nbsp;
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)&nbsp;
+![PrismaORM](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)&nbsp;
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)&nbsp;
+![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)&nbsp;
+
 - **Node.js**: Ambiente de execução para JavaScript no servidor.
 - **NestJS**: Framework para Node.js que facilita a criação de aplicativos escaláveis e robustos.
 - **PostgreSQL**: Sistema de gerenciamento de banco de dados relacional.
@@ -13,6 +20,7 @@ Este projeto é uma API RESTful para gerenciamento de usuários em uma plataform
 - **JWT**: JSON Web Token para autenticação segura.
 - **Docker**: Para gerenciamento de contêineres e criação de ambientes consistentes.
 - **Docker Compose**: Ferramenta para definir e gerenciar ambientes Docker multi-conteineres.
+
 
 ## 📂 Estrutura de Pastas Principais
 
