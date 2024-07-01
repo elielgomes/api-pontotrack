@@ -227,7 +227,7 @@ docker-compose down
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Para mais detalhes, consulte o arquivo [LICENSE](https://github.com/elielgomes/api-pontotrack/blob/main/LICENSE).
+Este projeto está sob a licença MIT. Para mais detalhes, consulte o arquivo [LICENSE](https://github.com/elielgomes/api-pontotrack/blob/main/LICENSE.md).
 
 ## ✒️ Autor
 
