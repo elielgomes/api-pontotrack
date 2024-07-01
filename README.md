@@ -2,60 +2,59 @@
 
 ## 📌 Visão Geral
 
-Este projeto é uma API RESTful para gerenciamento de usuários em uma plataforma de rastreamento de veículos. Foi desenvolvida utilizando Node.js com o framework NestJS e utiliza PostgreSQL como banco de dados. A autenticação é feita via JWT.
+Este projeto é uma API RESTful para gerenciamento de usuários em uma plataforma de rastreamento de veículos. Foi desenvolvida utilizando Node.js com o framework NestJS e utiliza PostgreSQL como banco de dados. A autenticação é feita via JWT (JSON Web Token).
 
 ## 👨🏻‍💻 Tecnologias Utilizadas
 
 - **Node.js**: Ambiente de execução para JavaScript no servidor.
 - **NestJS**: Framework para Node.js que facilita a criação de aplicativos escaláveis e robustos.
 - **PostgreSQL**: Sistema de gerenciamento de banco de dados relacional.
-- **Prisma ORM**: ORM para trabalhar com bancos de dados SQL.
+- **Prisma ORM**: ORM (Object-Relational Mapping) para trabalhar com bancos de dados SQL.
 - **JWT**: JSON Web Token para autenticação segura.
 - **Docker**: Para gerenciamento de contêineres e criação de ambientes consistentes.
 - **Docker Compose**: Ferramenta para definir e gerenciar ambientes Docker multi-conteineres.
 
-## Estrutura de Pastas Principais
+## 📂 Estrutura de Pastas Principais
 
 ```text
 src/
 │
 ├── modules/
-|   |
-|   ├── auth/              # Módulo de autenticação
-|   │   ├── decorators/
-|   │   ├── guards/
-|   │   ├── middlewares/
-|   │   ├── models/
-|   │   ├── strategies/
-|   │   ├── auth.controller.ts
-|   │   ├── auth.module.ts
-|   │   └── auth.service.ts
-|   │
-|   ├── prisma/            # Configurações e serviços relacionados ao Prisma ORM
-|   │   ├── prisma.module.ts
-|   │   └── prisma.service.ts		 
-|   │
-|   └── user/              # Módulo de usuário
-|       ├── user.controller.ts
-|       ├── user.module.ts
-|       ├── user.service.ts
-|       ├── user.repository.ts
-|       └── dto/
-|           ├── create-user.dto.ts
-|           ├── update-password.dto.ts
-|           └── update-user.dto.ts
-|
+│   ├── auth/              # Módulo de autenticação
+│   │   ├── decorators/
+│   │   ├── guards/
+│   │   ├── middlewares/
+│   │   ├── models/
+│   │   ├── strategies/
+│   │   ├── auth.controller.ts
+│   │   ├── auth.module.ts
+│   │   └── auth.service.ts
+│   │
+│   ├── prisma/            # Configurações e serviços relacionados ao Prisma ORM
+│   │   ├── prisma.module.ts
+│   │   └── prisma.service.ts		 
+│   │
+│   └── user/              # Módulo de usuário
+│       ├── user.controller.ts
+│       ├── user.module.ts
+│       ├── user.service.ts
+│       ├── user.repository.ts
+│       └── dto/
+│           ├── create-user.dto.ts
+│           ├── update-password.dto.ts
+│           └── update-user.dto.ts
+│
 ├── app.controller.ts
-├── app.module.ts      # Módulo principal da aplicação
-└── main.ts            # Ponto de entrada da aplicação
+├── app.module.ts          # Módulo principal da aplicação
+└── main.ts                # Ponto de entrada da aplicação
 ```
 
 ## ⚙️ Instalação e Configuração
 
 ### 📋 Pré-requisitos
 
-- Node.js >=18
-- Docker e Docker Compose instalados
+- [Node.js](https://nodejs.org/) versão 18 ou superior.
+- [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/) instalados.
 
 ### 🔧 Passos para Configuração
 
@@ -106,101 +105,130 @@ npm run start:dev
 ## ✏️ Documentação dos Endpoints
 
 ### `/ping` (HEAD)
-Verifica se a API está ativa.
 
-**Descrição:** Este endpoint verifica se a API está online.
+**Descrição:** Verifica se a API está ativa.
+
+**Resposta:** Código HTTP 200 se a API estiver online.
 
 ### `/user/me` (GET)
-Retorna informações do usuário autenticado.
 
-**Descrição:** Recebe um JWT nos Headers Authorization e retorna os detalhes do usuário logado.
+**Descrição:** Retorna informações do usuário autenticado.
+
+**Autenticação:** Requer um JWT no cabeçalho `Authorization`.
+
+**Resposta:** Dados do usuário autenticado.
 
 ### `/user` (PATCH)
-Atualiza informações do usuário.
 
-**Descrição:** Recebe um objeto com informações para atualizar o usuário.
+**Descrição:** Atualiza informações do usuário.
+
+**Autenticação:** Requer um JWT no cabeçalho `Authorization`.
+
+**Corpo da Requisição:** Objeto JSON com informações a serem atualizadas.
+
+**Resposta:** Dados atualizados do usuário.
 
 ### `/user` (POST)
-Cria um novo usuário.
 
-**Descrição:** Cria um novo usuário com os dados fornecidos.
+**Descrição:** Cria um novo usuário.
+
+**Corpo da Requisição:** Objeto JSON com os dados do novo usuário.
+
+**Resposta:** Dados do usuário criado.
 
 ### `/user` (DELETE)
-Deleta um usuário.
 
-**Descrição:** Remove o usuário especificado.
+**Descrição:** Deleta um usuário.
+
+**Autenticação:** Requer um JWT no cabeçalho `Authorization`.
+
+**Resposta:** Confirmação de deleção.
 
 ### `/user/password` (PATCH)
-Atualiza a senha do usuário.
 
-**Descrição:** Recebe um JWT e uma nova senha para atualizar a senha do usuário.
+**Descrição:** Atualiza a senha do usuário.
+
+**Autenticação:** Requer um JWT no cabeçalho `Authorization`.
+
+**Corpo da Requisição:** Objeto JSON com a nova senha.
+
+**Resposta:** Confirmação de atualização da senha.
 
 ### `/auth/login` (POST)
-Realiza o login do usuário.
 
-**Descrição:** Recebe as credenciais de login e autentica o usuário.
+**Descrição:** Realiza o login do usuário.
+
+**Corpo da Requisição:** Credenciais de login (email e senha).
+
+**Resposta:** JWT para autenticação.
 
 ## 🔐 Configuração de Segurança
 
-- Autenticação JWT: Utiliza JSON Web Tokens para autenticação de usuários. Assegure-se de manter o JWT_SECRET seguro.
-- CORS: Configurado para permitir acesso apenas de domínios confiáveis.
-- Env Variables: Nunca exponha as variáveis de ambiente sensíveis em repositórios públicos.
+- **Autenticação JWT:** Utiliza JSON Web Tokens para autenticação de usuários. Assegure-se de manter o `JWT_SECRET` seguro e não o exponha em repositórios públicos.
+- **CORS:** Configurado para permitir acesso apenas de domínios confiáveis. Ajuste conforme necessário para seu ambiente de produção.
+- **Variáveis de Ambiente:** Nunca exponha variáveis de ambiente sensíveis. Utilize ferramentas de gerenciamento de segredos quando necessário.
 
 ## 🐋 Docker
-### Arquivo docker-compose.yml
+
+### Arquivo `docker-compose.yml`
 
 ```yml
 version: '3.9'
 services:
-postgres:
-image: postgres
-ports:
-  - "5432:5432"
-volumes:
-  - ./.docker/postgres/:/var/lib/postgresql/data
-restart: unless-stopped
-environment:
-  - POSTGRES_USER=docker
-  - POSTGRES_PASSWORD=docker
-  - POSTGRES_DB=docker
-networks:
-  - network
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./.docker/postgres/:/var/lib/postgresql/data
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=docker
+    networks:
+      - network
 
-pgbouncer:
-image: edoburu/pgbouncer
-environment:
-  - DB_USER=docker
-  - DB_PASSWORD=docker
-  - DB_HOST=postgres
-  - DB_NAME=docker
-  - POOL_MODE=transaction
-  - ADMIN_USERS=docker
-  - AUTH_TYPE=plain
-ports:
-  - "6432:5432"
-depends_on:
-  - postgres
-networks:
-  - network
+  pgbouncer:
+    image: edoburu/pgbouncer
+    environment:
+      - DB_USER=docker
+      - DB_PASSWORD=docker
+      - DB_HOST=postgres
+      - DB_NAME=docker
+      - POOL_MODE=transaction
+      - ADMIN_USERS=docker
+      - AUTH_TYPE=plain
+    ports:
+      - "6432:5432"
+    depends_on:
+      - postgres
+    networks:
+      - network
 
 networks:
-network:
-driver: bridge
+  network:
+    driver: bridge
 ```
 
 ### 🛠️ Comandos Úteis
-- Subir Contêiners
+
+- **Subir Contêineres:**
+
 ```bash
 docker-compose up -d
 ```
 
-- Derrubar Contêiners
+- **Derrubar Contêineres:**
+
 ```bash
-docker-compose up -d
+docker-compose down
 ```
 
 ## 📄 Licença
-Este projeto está sob a licença MIT
+
+Este projeto está sob a licença MIT. Para mais detalhes, consulte o arquivo [LICENSE](https://github.com/elielgomes/api-pontotrack/blob/main/LICENSE).
 
 ## ✒️ Autor
-Feito por Eliel Gomes
+
+Feito por [Eliel Gomes](https://github.com/elielgomes).
